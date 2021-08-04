@@ -8,7 +8,7 @@ const ReadNovel = () => {
   const toeic = ToeicNovel.find((x) => x.id === novelId);
   const { words, content } = toeic;
   return (
-    <Typography variant="h5" component="p">
+    <Typography variant="h6" component="p">
       {content.map((x, index) => [x, <b key={index}>{words[index]}</b>])}
     </Typography>
   );
