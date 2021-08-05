@@ -1,15 +1,15 @@
 import React from "react";
 import { ToeicNovel } from "../../../../init/toeic-novel";
-import NavBar from "../../components/NavBar";
+import NavText from "../../components/NavText";
 
 const MainPage = () => {
   const MenuContentComponent = React.lazy(() =>
     import("../../components/MenuContent")
   );
   return (
-    <NavBar header="Tiểu thuyết Toeic" color="secondary">
+    <NavText text="Tiểu thuyết toeic">
       <MenuContentComponent list={ToeicNovel} />
-    </NavBar>
+    </NavText>
   );
 };
 

@@ -20,9 +20,7 @@ function App() {
             <Switch>
               <Redirect exact from="/" to="/toeic-novel" />
               <Route path="/toeic-novel" component={toeicNovelComponent} />
-              <Route>
-                <NotFound />
-              </Route>
+              <Route component={NotFound} />
             </Switch>
           </Container>
         </Router>

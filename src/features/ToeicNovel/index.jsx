@@ -6,14 +6,12 @@ import Detail from "./detail";
 const ToeicNovel = () => {
   const match = useRouteMatch();
   return (
-    <>
-      <div style={{ padding: "16px 0" }}>
-        <Switch>
-          <Route path={`${match.path}/:novelId`} component={Detail} />
-          <Route path={match.path} component={MainPage} />
-        </Switch>
-      </div>
-    </>
+    <div style={{ padding: "16px 0" }}>
+      <Switch>
+        <Route path={`${match.path}/:novelId`} component={Detail} />
+        <Route path={match.path} component={MainPage} />
+      </Switch>
+    </div>
   );
 };
 

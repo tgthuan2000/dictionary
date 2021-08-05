@@ -1,10 +1,9 @@
 import React from "react";
-import PropTypes from "prop-types";
 
-const index = (props) => {
-  return <div></div>;
+const Examinate = (props) => {
+  return <div>Examinate</div>;
 };
 
-index.propTypes = {};
+Examinate.propTypes = {};
 
-export default index;
+export default Examinate;

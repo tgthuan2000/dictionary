@@ -1,58 +1,133 @@
-import React, { Fragment } from "react";
-import PropTypes from "prop-types";
+import React, { Fragment, useState } from "react";
 import {
   AppBar,
-  Box,
   Container,
   CssBaseline,
-  Slide,
+  Fab,
+  makeStyles,
+  Paper,
+  Tab,
+  Tabs,
   Toolbar,
-  Typography,
-  useScrollTrigger,
 } from "@material-ui/core";
+import {
+  FingerprintOutlined,
+  HomeOutlined,
+  KeyboardArrowUp,
+  LibraryBooksOutlined,
+  NoteAddOutlined,
+  SpellcheckOutlined,
+  ViewHeadlineOutlined,
+} from "@material-ui/icons";
+import { useHistory } from "react-router-dom";
+import ReadNovel from "../../pages/read";
+import Vocabulary from "../../pages/vocabulary";
+import Examinate from "../../pages/exam";
+import Paragraph from "../../pages/paragraph";
+import NotePage from "../../pages/note";
+import HideOnScroll from "../../../../components/HideOnScroll";
+import TabPanel from "../TabPanel";
+import ScrollTop from "../ScrollTop";
 
-const NavBar = (props) => {
-  const { children, header, color } = props;
+const useStyles = makeStyles((theme) => ({
+  root: {
+    backgroundColor: theme.palette.background.paper,
+  },
+  paper: {
+    width: "100%",
+    display: "flex",
+    justifyContent: "center",
+  },
+}));
+
+function NavBar(props) {
+  const classes = useStyles();
+  const [value, setValue] = useState(1);
+  let history = useHistory();
   return (
-    <div>
-      <Fragment>
-        <CssBaseline />
-        <HideOnScroll {...props}>
-          <AppBar color={color}>
-            <Toolbar>
-              <Typography variant="h6">{header}</Typography>
-            </Toolbar>
-          </AppBar>
-        </HideOnScroll>
-        <Toolbar />
-        <Container disableGutters>
-          <Box my={1}>{children}</Box>
-        </Container>
-      </Fragment>
-    </div>
-  );
-};
-
-function HideOnScroll(props) {
-  const { children, window } = props;
-  // Note that you normally won't need to set the window ref as useScrollTrigger
-  // will default to window.
-  // This is only being set here because the demo is in an iframe.
-  const trigger = useScrollTrigger({ target: window ? window() : undefined });
-
-  return (
-    <Slide appear={false} direction="down" in={!trigger}>
-      {children}
-    </Slide>
+    <Fragment>
+      <CssBaseline />
+      <HideOnScroll {...props}>
+        <AppBar className={classes.root}>
+          <Toolbar disableGutters>
+            <Paper square className={classes.paper}>
+              <Tabs
+                value={value}
+                onChange={(e, newValue) => setValue(newValue)}
+                indicatorColor="secondary"
+                textColor="secondary"
+                variant="scrollable"
+                scrollButtons="on"
+              >
+                <Tab
+                  icon={<HomeOutlined />}
+                  label="Back home"
+                  onClick={() => history.push("/")}
+                />
+                <Tab
+                  icon={<LibraryBooksOutlined />}
+                  label="read"
+                  {...a11yProps(1)}
+                />
+                <Tab
+                  icon={<SpellcheckOutlined />}
+                  label="Vocabulary"
+                  {...a11yProps(2)}
+                />
+                <Tab
+                  icon={<FingerprintOutlined />}
+                  label="Exam"
+                  {...a11yProps(3)}
+                />
+                <Tab
+                  icon={<ViewHeadlineOutlined />}
+                  label="Paragraph"
+                  {...a11yProps(4)}
+                />
+                <Tab
+                  icon={<NoteAddOutlined />}
+                  label="Note"
+                  {...a11yProps(5)}
+                />
+              </Tabs>
+            </Paper>
+          </Toolbar>
+        </AppBar>
+      </HideOnScroll>
+      <Toolbar />
+      <Container disableGutters id="back-to-top-anchor">
+        <TabPanel value={value} index={1}>
+          <ReadNovel />
+        </TabPanel>
+        <TabPanel value={value} index={2}>
+          <Vocabulary />
+        </TabPanel>
+        <TabPanel value={value} index={3}>
+          <Examinate />
+        </TabPanel>
+        <TabPanel value={value} index={4}>
+          <Paragraph />
+        </TabPanel>
+        <TabPanel value={value} index={5}>
+          <NotePage />
+        </TabPanel>
+      </Container>
+      <ScrollTop {...props}>
+        <Fab color="secondary" size="small">
+          <KeyboardArrowUp />
+        </Fab>
+      </ScrollTop>
+    </Fragment>
   );
 }
 
-HideOnScroll.propTypes = {
-  children: PropTypes.element.isRequired,
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
-  window: PropTypes.func,
-};
+NavBar.propTypes = {};
+
+function a11yProps(index) {
+  return {
+    id: `nav-tab-${index}`,
+    "aria-controls": `nav-tabpanel-${index}`,
+  };
+}
+
 export default NavBar;

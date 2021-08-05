@@ -8,8 +8,6 @@ import Header from "../../components/Header";
 const useStyles = makeStyles({
   word: {
     cursor: "pointer",
-  },
-  text: {
     userSelect: "none",
   },
 });
@@ -37,8 +35,8 @@ const ReadNovel = () => {
   };
   return (
     <>
-      <Header title={title} color="primary" variant="h5" component="h5" />
-      <Typography component="p" className={classes.text}>
+      <Header title={title} color="primary" variant="h5" component="p" />
+      <Typography component="p">
         {content.split("(*)").map((item, index, { length }) => [
           item,
           index !== length - 1 && (
