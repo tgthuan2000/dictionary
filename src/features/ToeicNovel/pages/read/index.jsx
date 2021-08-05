@@ -1,16 +1,62 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { ToeicNovel } from "../../../../init/toeic-novel";
-import { Typography } from "@material-ui/core";
+import { Typography, makeStyles } from "@material-ui/core";
+import axios from "axios";
+import Header from "../../components/Header";
 
+const useStyles = makeStyles({
+  word: {
+    cursor: "pointer",
+  },
+  text: {
+    userSelect: "none",
+  },
+});
 const ReadNovel = () => {
+  const classes = useStyles();
+  const [word, setWord] = useState({});
   const { novelId } = useParams();
   const toeic = ToeicNovel.find((x) => x.id === novelId);
-  const { words, content } = toeic;
+  const { words, content, title } = toeic;
+
+  const handleClick = (word) => {
+    async function getWord() {
+      try {
+        const response = await axios.get(
+          `https://api.dictionaryapi.dev/api/v2/entries/en_US/${word}`
+        );
+        console.log(...response.data);
+        setWord(...response.data);
+      } catch (error) {
+        console.error(error);
+        setWord("404 not found");
+      }
+    }
+    getWord();
+  };
   return (
-    <Typography variant="h6" component="p">
-      {content.map((x, index) => [x, <b key={index}>{words[index]}</b>])}
-    </Typography>
+    <>
+      <Header title={title} color="primary" variant="h5" component="h5" />
+      <Typography component="p" className={classes.text}>
+        {content.split("(*)").map((item, index, { length }) => [
+          item,
+          index !== length - 1 && (
+            <Typography
+              component="span"
+              key={index}
+              color="secondary"
+              className={classes.word}
+              onClick={() => handleClick(words[index])}
+            >
+              {/* (${index + 1}) */}
+              {`${words[index]}`}
+            </Typography>
+          ),
+        ])}
+      </Typography>
+      {JSON.stringify(word)}
+    </>
   );
 };
 
