@@ -24,7 +24,7 @@ const MenuContent = (props) => {
             href={`${match.url}/${item.id}`}
             key={index}
           >
-            <ListItemText primary={`Story ${index + 1}: ${item.title}`} />
+            <ListItemText primary={`Mẫu truyện ${index + 1}: ${item.title}`} />
           </ListItem>
         ))}
       </List>

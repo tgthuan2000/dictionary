@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
-import { ToeicNovel } from "../../../../init/toeic-novel";
+import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core";
 import axios from "axios";
 import Header from "../../components/Header";
@@ -22,18 +21,19 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "8px",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
+    overflowX: "hidden",
   },
 }));
 
-const ReadNovel = () => {
+const ReadNovel = (props) => {
   const classes = useStyles();
   const [word, setWord] = useState({});
-  const { novelId } = useParams();
-  const toeic = ToeicNovel.find((x) => x.id === novelId);
-  const { title } = toeic;
+  const { data } = props;
+  const { title } = data;
   const [modal, setModal] = useState(false);
-
+  const [loading, setLoading] = useState(false);
   const handleContentClick = (word) => {
+    setLoading(true);
     async function getWord() {
       try {
         const response = await axios.get(
@@ -41,35 +41,41 @@ const ReadNovel = () => {
         );
         console.log(...response.data);
         setWord(...response.data);
+        setLoading(false);
       } catch (error) {
         console.error(error);
         setWord("404 not found");
+        setLoading(false);
       }
     }
     getWord();
     setModal(true);
   };
-  const hanldCloseModal = () => {
+  const handleCloseModal = () => {
     setModal(false);
-    setWord({});
   };
+
   return (
     <>
       <Header title={title} color="primary" variant="h5" component="p" />
       <Content
         className={classes.word}
-        {...toeic}
+        {...data}
         onClick={handleContentClick}
       />
       <ReadModal
         open={modal}
-        onClose={hanldCloseModal}
-        modalClass={classes.modal}
+        onClose={handleCloseModal}
         paperClass={classes.paper}
         data={JSON.stringify(word)}
+        isLoading={loading}
       />
     </>
   );
+};
+
+ReadNovel.propTypes = {
+  data: PropTypes.object,
 };
 
 export default ReadNovel;

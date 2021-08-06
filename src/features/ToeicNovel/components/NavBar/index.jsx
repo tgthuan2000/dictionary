@@ -28,6 +28,8 @@ import NotePage from "../../pages/note";
 import HideOnScroll from "../../../../components/HideOnScroll";
 import TabPanel from "./TabPanel";
 import ScrollTop from "./ScrollTop";
+import { ToeicNovel } from "../../../../init/toeic-novel";
+import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,6 +43,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function NavBar(props) {
+  const { novelId } = useParams();
+  const toeic = ToeicNovel.find((x) => x.id === novelId);
   const classes = useStyles();
   const [value, setValue] = useState(1);
   let history = useHistory();
@@ -61,32 +65,32 @@ function NavBar(props) {
               >
                 <Tab
                   icon={<HomeOutlined />}
-                  label="Back home"
+                  label="Trang chủ"
                   onClick={() => history.push("/")}
                 />
                 <Tab
                   icon={<LibraryBooksOutlined />}
-                  label="read"
+                  label="Mẫu truyện"
                   {...a11yProps(1)}
                 />
                 <Tab
                   icon={<SpellcheckOutlined />}
-                  label="Vocabulary"
+                  label="Từ vựng"
                   {...a11yProps(2)}
                 />
                 <Tab
                   icon={<FingerprintOutlined />}
-                  label="Exam"
+                  label="Kiểm tra"
                   {...a11yProps(3)}
                 />
                 <Tab
                   icon={<ViewHeadlineOutlined />}
-                  label="Paragraph"
+                  label="Văn bản"
                   {...a11yProps(4)}
                 />
                 <Tab
                   icon={<NoteAddOutlined />}
-                  label="Note"
+                  label="Ghi chú"
                   {...a11yProps(5)}
                 />
               </Tabs>
@@ -97,19 +101,19 @@ function NavBar(props) {
       <Toolbar id="back-to-top-anchor" />
       <Container disableGutters>
         <TabPanel value={value} index={1}>
-          <ReadNovel />
+          <ReadNovel data={toeic} />
         </TabPanel>
         <TabPanel value={value} index={2}>
-          <Vocabulary />
+          <Vocabulary data={toeic} />
         </TabPanel>
         <TabPanel value={value} index={3}>
-          <Examinate />
+          <Examinate data={toeic} />
         </TabPanel>
         <TabPanel value={value} index={4}>
-          <Paragraph />
+          <Paragraph data={toeic} />
         </TabPanel>
         <TabPanel value={value} index={5}>
-          <NotePage />
+          <NotePage data={toeic} />
         </TabPanel>
       </Container>
       <ScrollTop {...props}>

@@ -12,7 +12,11 @@ function TabPanel(props) {
       aria-labelledby={`nav-tab-${index}`}
       {...other}
     >
-      {value === index && <Box paddingY={3}>{children}</Box>}
+      {value === index && (
+        <Box paddingBottom={15} paddingTop={3}>
+          {children}
+        </Box>
+      )}
     </div>
   );
 }

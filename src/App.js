@@ -14,7 +14,13 @@ function App() {
   const toeicNovelComponent = React.lazy(() => import("./features/ToeicNovel"));
   return (
     <div className="dictionary-app">
-      <Suspense fallback={<Loading />}>
+      <Suspense
+        fallback={
+          <div className="dictionary-app-loading">
+            <Loading />
+          </div>
+        }
+      >
         <Router>
           <Container maxWidth="sm">
             <Switch>
