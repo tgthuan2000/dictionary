@@ -26,8 +26,8 @@ import Examinate from "../../pages/exam";
 import Paragraph from "../../pages/paragraph";
 import NotePage from "../../pages/note";
 import HideOnScroll from "../../../../components/HideOnScroll";
-import TabPanel from "../TabPanel";
-import ScrollTop from "../ScrollTop";
+import TabPanel from "./TabPanel";
+import ScrollTop from "./ScrollTop";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -94,8 +94,8 @@ function NavBar(props) {
           </Toolbar>
         </AppBar>
       </HideOnScroll>
-      <Toolbar />
-      <Container disableGutters id="back-to-top-anchor">
+      <Toolbar id="back-to-top-anchor" />
+      <Container disableGutters>
         <TabPanel value={value} index={1}>
           <ReadNovel />
         </TabPanel>
@@ -113,7 +113,7 @@ function NavBar(props) {
         </TabPanel>
       </Container>
       <ScrollTop {...props}>
-        <Fab color="secondary" size="small">
+        <Fab color="secondary" size="medium">
           <KeyboardArrowUp />
         </Fab>
       </ScrollTop>

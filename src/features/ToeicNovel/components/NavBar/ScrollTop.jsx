@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 const useStyles = makeStyles((theme) => ({
   root: {
     position: "fixed",
-    bottom: theme.spacing(10),
+    bottom: theme.spacing(11),
     right: theme.spacing(3),
   },
 }));

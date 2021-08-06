@@ -14,7 +14,7 @@ const NoteBtn = () => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <Fab color="primary" size="small">
+      <Fab color="primary" size="medium">
         <Edit />
       </Fab>
     </div>
