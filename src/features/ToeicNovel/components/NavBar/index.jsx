@@ -33,6 +33,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { KEY_TRANSLATE } from "../../../../localStorageContans";
 import Loading from "../../../../components/Loading";
+import { translateMymemory } from "../../../../apiOption";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -46,11 +47,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function NavBar(props) {
+  let history = useHistory();
   const { novelId } = useParams();
   const toeic = ToeicNovel.find((x) => x.id === novelId);
   const classes = useStyles();
   const [value, setValue] = useState(1);
-  let history = useHistory();
   const [loadData, setLoadData] = useState(false);
   const [trans, setTrans] = useState(() => {
     const data = JSON.parse(localStorage.getItem(KEY_TRANSLATE));
@@ -60,27 +61,10 @@ function NavBar(props) {
     return data[index].trans;
   });
   useEffect(() => {
-    if (trans.length !== toeic.length) {
+    if (trans.length !== toeic.words.length) {
       setLoadData(true);
       const result = toeic.words.reduce(async (init, word) => {
-        const options = {
-          method: "GET",
-          url: "https://translated-mymemory---translation-memory.p.rapidapi.com/api/get",
-          params: {
-            langpair: "en|vi",
-            q: word,
-            mt: "1",
-            onlyprivate: "0",
-            de: "a@b.c",
-          },
-          headers: {
-            "x-rapidapi-key":
-              "aeccafce8bmshd520252fa7f0c94p1d23d6jsnec51cb16c6c3",
-            "x-rapidapi-host":
-              "translated-mymemory---translation-memory.p.rapidapi.com",
-          },
-        };
-        const request = await axios.request(options);
+        const request = await axios.request(translateMymemory(word));
         const data = await request.data;
         const {
           responseData: { translatedText: vi },

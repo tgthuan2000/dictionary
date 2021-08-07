@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 
 const VocabularyList = (props) => {
   const { list, trans } = props;
-  console.log(trans);
+  // console.log(trans);
   const classes = useStyles();
 
   return (

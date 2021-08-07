@@ -1,7 +1,7 @@
 import React from "react";
 
 const Examinate = (props) => {
-  return <div>Examinate</div>;
+  return <div>Examinated</div>;
 };
 
 Examinate.propTypes = {};
