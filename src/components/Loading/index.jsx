@@ -1,5 +1,5 @@
 import React from "react";
-import loadingImg from "../../loading.gif";
+import loadingImg from "../../loading.svg";
 import { makeStyles } from "@material-ui/core";
 const useStyles = makeStyles({
   loading: {
@@ -22,5 +22,4 @@ const Loading = () => {
     </div>
   );
 };
-
 export default Loading;

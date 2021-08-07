@@ -27,7 +27,6 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 const NoteBtn = () => {
-  console.log("render");
   const classes = useStyles();
   const [note, setNote] = useState(() => {
     return JSON.parse(localStorage.getItem(KEY_NOTE)) || "";

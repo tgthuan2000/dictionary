@@ -39,11 +39,11 @@ const ReadNovel = (props) => {
         const response = await axios.get(
           `https://api.dictionaryapi.dev/api/v2/entries/en_US/${word}`
         );
-        console.log(...response.data);
+        // console.log(...response.data);
         setWord(...response.data);
         setLoading(false);
       } catch (error) {
-        console.error(error);
+        // console.error(error);
         setWord("404 not found");
         setLoading(false);
       }

@@ -27,8 +27,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const VocabularyList = (props) => {
-  const { list } = props;
+  const { list, trans } = props;
+  console.log(trans);
   const classes = useStyles();
+
   return (
     <div className={classes.root}>
       <List
@@ -50,7 +52,7 @@ const VocabularyList = (props) => {
                 {word.toLowerCase().trim()}
               </Typography>
               <Typography className={classes.secondaryHeading}>
-                {word.toLowerCase().trim()}
+                {trans[index]?.toLowerCase().trim()}
               </Typography>
             </AccordionSummary>
             <AccordionDetails>

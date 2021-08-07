@@ -16,10 +16,10 @@ const Content = (props) => {
             key={index}
             color="secondary"
             className={className}
-            onClick={() => onClick(words[index])}
+            onClick={() => onClick(words[index].trim())}
           >
             {/* (${index + 1}) */}
-            {`${words[index]}`}
+            {`${words[index].trim()}`}
           </Typography>
         ),
       ])}

@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import {
   AppBar,
   Container,
@@ -29,7 +29,10 @@ import HideOnScroll from "../../../../components/HideOnScroll";
 import TabPanel from "./TabPanel";
 import ScrollTop from "./ScrollTop";
 import { ToeicNovel } from "../../../../init/toeic-novel";
-import { useParams } from "react-router-dom/cjs/react-router-dom.min";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+import { KEY_TRANSLATE } from "../../../../localStorageContans";
+import Loading from "../../../../components/Loading";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -48,6 +51,63 @@ function NavBar(props) {
   const classes = useStyles();
   const [value, setValue] = useState(1);
   let history = useHistory();
+  const [loadData, setLoadData] = useState(false);
+  const [trans, setTrans] = useState(() => {
+    const data = JSON.parse(localStorage.getItem(KEY_TRANSLATE));
+    if (!data) return [];
+    const index = data.findIndex(({ id }) => id === novelId);
+    if (index === -1) return [];
+    return data[index].trans;
+  });
+  useEffect(() => {
+    if (trans.length !== toeic.length) {
+      setLoadData(true);
+      const result = toeic.words.reduce(async (init, word) => {
+        const options = {
+          method: "GET",
+          url: "https://translated-mymemory---translation-memory.p.rapidapi.com/api/get",
+          params: {
+            langpair: "en|vi",
+            q: word,
+            mt: "1",
+            onlyprivate: "0",
+            de: "a@b.c",
+          },
+          headers: {
+            "x-rapidapi-key":
+              "aeccafce8bmshd520252fa7f0c94p1d23d6jsnec51cb16c6c3",
+            "x-rapidapi-host":
+              "translated-mymemory---translation-memory.p.rapidapi.com",
+          },
+        };
+        const request = await axios.request(options);
+        const data = await request.data;
+        const {
+          responseData: { translatedText: vi },
+        } = await data;
+        // console.log(vi);
+        return [...(await init), vi];
+      }, []);
+
+      result.then((trans) => {
+        setTrans(trans);
+        setLoadData(false);
+        const data = JSON.parse(localStorage.getItem(KEY_TRANSLATE));
+        if (!data) {
+          localStorage.setItem(
+            KEY_TRANSLATE,
+            JSON.stringify([{ id: novelId, trans }])
+          );
+        } else if (data.findIndex(({ id }) => id === novelId) === -1)
+          localStorage.setItem(
+            KEY_TRANSLATE,
+            JSON.stringify([...data, { id: novelId, trans }])
+          );
+      });
+    }
+    // console.log("render");
+  }, [novelId, toeic, trans]);
+
   return (
     <Fragment>
       <CssBaseline />
@@ -100,21 +160,29 @@ function NavBar(props) {
       </HideOnScroll>
       <Toolbar id="back-to-top-anchor" />
       <Container disableGutters>
-        <TabPanel value={value} index={1}>
-          <ReadNovel data={toeic} />
-        </TabPanel>
-        <TabPanel value={value} index={2}>
-          <Vocabulary data={toeic} />
-        </TabPanel>
-        <TabPanel value={value} index={3}>
-          <Examinate data={toeic} />
-        </TabPanel>
-        <TabPanel value={value} index={4}>
-          <Paragraph data={toeic} />
-        </TabPanel>
-        <TabPanel value={value} index={5}>
-          <NotePage data={toeic} />
-        </TabPanel>
+        {loadData ? (
+          <div className="dictionary-app-loading">
+            <Loading />
+          </div>
+        ) : (
+          <>
+            <TabPanel value={value} index={1}>
+              <ReadNovel data={toeic} />
+            </TabPanel>
+            <TabPanel value={value} index={2}>
+              <Vocabulary data={toeic} trans={trans} />
+            </TabPanel>
+            <TabPanel value={value} index={3}>
+              <Examinate data={toeic} />
+            </TabPanel>
+            <TabPanel value={value} index={4}>
+              <Paragraph data={toeic} />
+            </TabPanel>
+            <TabPanel value={value} index={5}>
+              <NotePage data={toeic} />
+            </TabPanel>
+          </>
+        )}
       </Container>
       <ScrollTop {...props}>
         <Fab color="secondary" size="medium">
