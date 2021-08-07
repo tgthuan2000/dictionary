@@ -589,7 +589,7 @@ export const ToeicNovel = [
     id: "story-18",
     title: "Một ngày tồi tệ",
     content:
-      "Hôm nay Tin phải go on (*) ở Acex (*). Tin (*) vé máy bay khứ hồi trước đó 2 tuần. Đồng thời cũng đã đặt (*) khách sạn. Khi Tin ra sân bay thì lại nhận được (*) là máy bay bị (*) lại hôm sau mới đi, vì lý do (*). Tin rất lo lắng vì sợ trễ công tác. Tin đổi vé máy bay thì nhân viên hướng dẫn Tin (*) cổng số 7 để làm (*). Khi tới nơi, nhân viên nói rằng (*) tất cả các chuyến bay đều đã được đặt vé sạch. Vậy là không còn (*) nào khác, Tin đành lỡ hội nghị và phải (*) đối tác xin lỗi. Điều này cũng có nghĩa là những (*) Tin (*) sẽ không còn ý nghĩa gì nữa. Tin gọi cho khách sạn xem có lấy lại được tiền không thì (*) cũng không được. Đây là lần thứ 2 (*) Tin đi máy bay hãng này và gặp (*) hoài. Tin (*) về việc có nên bay hãng này nữa hay không.",
+      "Hôm nay Tin phải (*) ở Acex (*). Tin (*) vé máy bay khứ hồi trước đó 2 tuần. Đồng thời cũng đã đặt (*) khách sạn. Khi Tin ra sân bay thì lại nhận được (*) là máy bay bị (*) lại hôm sau mới đi, vì lý do (*). Tin rất lo lắng vì sợ trễ công tác. Tin đổi vé máy bay thì nhân viên hướng dẫn Tin (*) cổng số 7 để làm (*). Khi tới nơi, nhân viên nói rằng (*) tất cả các chuyến bay đều đã được đặt vé sạch. Vậy là không còn (*) nào khác, Tin đành lỡ hội nghị và phải (*) đối tác xin lỗi. Điều này cũng có nghĩa là những (*) Tin (*) sẽ không còn ý nghĩa gì nữa. Tin gọi cho khách sạn xem có lấy lại được tiền không thì (*) cũng không được. Đây là lần thứ 2 (*) Tin đi máy bay hãng này và gặp (*) hoài. Tin (*) về việc có nên bay hãng này nữa hay không.",
     words: [
       "go on business",
       "conference center",
@@ -615,7 +615,7 @@ export const ToeicNovel = [
     id: "story-19",
     title: "Thư mời dự họp",
     content:
-      "Anh ngữ Benzen (*) tất cả các khách hàng và nhân viên (*) về việc quan trọng sau đây. Over3 5 năm hoạt động và (*), BenzenEnglish chính thức (*) và được (*) tại Thủ Đức. Lễ khai trương sẽ được take (*) vào đầu tuần sau. Riêng cuối tuần này, các (*) sẽ có 1 cuộc (*) để nắm bắt rõ về vấn đề này. Mong các bạn (*). Không vắng (*). Để đảm bảo cuộc họp (*) và (*), vui lòng đọc kỹ (*) được (*) trong email này. Cuộc họp được (*) trong thời gian kéo dài 30 phút thay vì 1 tiếng (*). (*) của bạn là rất quan trọng, tuy nhiên, cũng nhớ rằng, trong cuộc họp có nhiều thông tin (*) nên vui lòng không (*) ra ngoài. Anh Tin sẽ (*) cuộc họp này nên có gì cần cứ liên hệ anh ấy. Về phía khách hàng, (*) việc tri ân, Benzen sẽ có những (*) xinh xắn vào ngày hôm đó cho các bạn.",
+      "Anh ngữ Benzen (*) tất cả các khách hàng và nhân viên (*) về việc quan trọng sau đây. (*) 5 năm hoạt động và (*), BenzenEnglish chính thức (*) và được (*) tại Thủ Đức. Lễ khai trương sẽ được take (*) vào đầu tuần sau. Riêng cuối tuần này, các (*) sẽ có 1 cuộc (*) để nắm bắt rõ về vấn đề này. Mong các bạn (*). Không vắng (*). Để đảm bảo cuộc họp (*) và (*), vui lòng đọc kỹ (*) được (*) trong email này. Cuộc họp được (*) trong thời gian kéo dài 30 phút thay vì 1 tiếng (*). (*) của bạn là rất quan trọng, tuy nhiên, cũng nhớ rằng, trong cuộc họp có nhiều thông tin (*) nên vui lòng không (*) ra ngoài. Anh Tin sẽ (*) cuộc họp này nên có gì cần cứ liên hệ anh ấy. Về phía khách hàng, (*) việc tri ân, Benzen sẽ có những (*) xinh xắn vào ngày hôm đó cho các bạn.",
     words: [
       "announce",
       "company",
