@@ -33,7 +33,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { KEY_TRANSLATE } from "../../../../localStorageContans";
 import Loading from "../../../../components/Loading";
-import { translateMymemory } from "../../../../apiOption";
+import { translateMymemory } from "./apiOption";
 import UpdateLocalStorage from "./updateLocalStorage";
 
 const useStyles = makeStyles((theme) => ({
