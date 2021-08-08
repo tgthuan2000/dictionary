@@ -36,7 +36,7 @@ const Examinate = (props) => {
     if (answers[index] === correct) {
       setAlert({ open: true, status: true, content: "Đáp án chính xác!!!" });
       setCheck(-1);
-      setContent(randomContent(words, trans));
+      setContent(randomContent(words, trans, word));
     } else {
       setAlert({
         open: true,

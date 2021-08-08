@@ -1,13 +1,11 @@
-import {KEY_EXAM_WORD} from "../../../../localStorageContans"
-
-const randomContent = (words, trans) => {
-  //   console.log(words, trans);
-  const data = JSON.parse(localStorage.getItem(KEY_EXAM_WORD)) || ""
-  let index = -1
+const randomContent = (words, trans, prevWord = "") => {
+   //  console.log(words, trans, prevWord);
+  let index;
   do{
+	  console.log('render')
 	index = Math.floor(Math.random() * words.length);
-  } while(words[index] === data);
-  localStorage.setItem(KEY_EXAM_WORD, JSON.stringify(words[index]))
+  } while(words[index] === prevWord);
+  
   //   console.log(index);
   return {
     word: words[index],
