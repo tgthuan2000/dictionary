@@ -34,6 +34,7 @@ import axios from "axios";
 import { KEY_TRANSLATE } from "../../../../localStorageContans";
 import Loading from "../../../../components/Loading";
 import { translateMymemory } from "../../../../apiOption";
+import UpdateLocalStorage from "./updateLocalStorage";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -58,10 +59,12 @@ function NavBar(props) {
     if (!data) return [];
     const index = data.findIndex(({ id }) => id === novelId);
     if (index === -1) return [];
-    return data[index].trans;
+    const { trans, key } = data[index];
+    return { trans, key };
   });
   useEffect(() => {
-    if (trans.length !== toeic.words.length) {
+    // console.log(trans.key, toeic.key);
+    if (trans.key !== toeic.key) {
       setLoadData(true);
       const result = toeic.words.reduce(async (init, word) => {
         const request = await axios.request(translateMymemory(word));
@@ -73,20 +76,15 @@ function NavBar(props) {
         return [...(await init), vi];
       }, []);
 
+      // test
+      // const result = new Promise((resolve) => {
+      //   return resolve([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]);
+      // });
+
       result.then((trans) => {
-        setTrans(trans);
+        setTrans({ trans, key: toeic.key });
         setLoadData(false);
-        const data = JSON.parse(localStorage.getItem(KEY_TRANSLATE));
-        if (!data) {
-          localStorage.setItem(
-            KEY_TRANSLATE,
-            JSON.stringify([{ id: novelId, trans }])
-          );
-        } else if (data.findIndex(({ id }) => id === novelId) === -1)
-          localStorage.setItem(
-            KEY_TRANSLATE,
-            JSON.stringify([...data, { id: novelId, trans }])
-          );
+        UpdateLocalStorage(novelId, trans, toeic.key);
       });
     }
     // console.log("render");
@@ -154,7 +152,7 @@ function NavBar(props) {
               <ReadNovel data={toeic} />
             </TabPanel>
             <TabPanel value={value} index={2}>
-              <Vocabulary data={toeic} trans={trans} />
+              <Vocabulary data={toeic} trans={trans.trans} />
             </TabPanel>
             <TabPanel value={value} index={3}>
               <Examinate data={toeic} />

@@ -28,6 +28,7 @@ export const ToeicNovel = [
       "quality",
       "customer",
     ],
+    key: "X52ZZmaJZN",
   },
   {
     id: "story-2",
@@ -60,6 +61,7 @@ export const ToeicNovel = [
       "apply for",
       "membership",
     ],
+    key: "kY6iErqxru",
   },
   {
     id: "story-3",
@@ -97,6 +99,7 @@ export const ToeicNovel = [
       "opportunity",
       "promote",
     ],
+    key: "RDkT7wUNFD",
   },
   {
     id: "story-4",
@@ -130,6 +133,7 @@ export const ToeicNovel = [
       "solve",
       "company",
     ],
+    key: "K9eleAxncM",
   },
   {
     id: "story-5",
@@ -165,6 +169,7 @@ export const ToeicNovel = [
       "reply to",
       "announcement",
     ],
+    key: "3OcYB3Zb6g",
   },
   {
     id: "story-6",
@@ -172,7 +177,7 @@ export const ToeicNovel = [
     content:
       "Vì (*) nhân sự để (*) hoạt động, Tin đang (*) 1 (*). Để (*) (*), các (*) phải tải (*) trên công ty. Các bằng cấp được yêu cầu phải được (*) trong đó. Sau đó, các (*) phải (*) online ngược lại. Để (*) người giỏi, công ty đưa ra (*) cũng rất khắt khe vì muốn (*) 1 người có (*) tốt nhất. (*), bạn phải có 2 năm (*). (*) cao, (*), (*) tốt, đồng thời, nếu làm (*), bạn còn sẽ được (*). Tuy nhiên, có thể bạn phải (*) và (*) (*). \nNếu bạn (*), bạn sẽ được mời tham gia (*). (*), bạn sẽ phải (*) 1 buổi đào tạo (*) 7 ngày để hiểu rõ hơn về công ty và công việc của bạn. Bạn được (*) hợp đồng thử việc 2 tháng và được (*) công việc. Đây là giai đoạn rất quan trọng để bạn (*) (*) của bạn. Nếu bạn không làm tốt, rất tiếc, công ty phải (*) bạn. Sau 2 tháng, bạn được ký (*). Ngoài lương, bạn còn được đóng (*). Cuối năm, công ty sẽ có (*) để chọn ra người có (*) nhất và trao (*).",
     words: [
-      "ack of",
+      "lack of",
       "expand",
       "recruit",
       "supervisor",
@@ -213,6 +218,7 @@ export const ToeicNovel = [
       "contribution",
       "award",
     ],
+    key: "WPVnlW63H8",
   },
   {
     id: "story-7",
@@ -254,6 +260,7 @@ export const ToeicNovel = [
       "receive",
       "promptly",
     ],
+    key: "XGONP6QVUy",
   },
   {
     id: "story-8",
@@ -285,6 +292,7 @@ export const ToeicNovel = [
       "reasonable price",
       "attract",
     ],
+    key: "Mt0P5WQ9Lf",
   },
   {
     id: "story-9",
@@ -319,6 +327,7 @@ export const ToeicNovel = [
       "capacity",
       "in advance",
     ],
+    key: "0C9aBJlowz",
   },
   {
     id: "story-10",
@@ -350,6 +359,7 @@ export const ToeicNovel = [
       "feedback",
       "strictly confidential",
     ],
+    key: "Ly28YWENvH",
   },
   {
     id: "story-11",
@@ -394,6 +404,7 @@ export const ToeicNovel = [
       "résumé",
       "hand in",
     ],
+    key: "uxyMo7bD9S",
   },
   {
     id: "story-12",
@@ -430,6 +441,7 @@ export const ToeicNovel = [
       "terms and conditions",
       "payment",
     ],
+    key: "d4AVoyBJKs",
   },
   {
     id: "story-13",
@@ -463,6 +475,7 @@ export const ToeicNovel = [
       "customer satisfaction",
       "priority",
     ],
+    key: "ppkhIKCs6g",
   },
   {
     id: "story-14",
@@ -492,6 +505,7 @@ export const ToeicNovel = [
       "last",
       "instead of",
     ],
+    key: "K2rU3tkWXx",
   },
   {
     id: "story-15",
@@ -524,6 +538,7 @@ export const ToeicNovel = [
       "as long as",
       "accompanied by",
     ],
+    key: "y1MkdRIlsL",
   },
   {
     id: "story-16",
@@ -554,6 +569,7 @@ export const ToeicNovel = [
       "extend our sincere thanks",
       "retire",
     ],
+    key: "aiEAOYHE8V",
   },
   {
     id: "story-17",
@@ -584,6 +600,7 @@ export const ToeicNovel = [
       "vacation",
       "complimentary",
     ],
+    key: "ispIqxlJ6l",
   },
   {
     id: "story-18",
@@ -610,6 +627,7 @@ export const ToeicNovel = [
       "trouble",
       "consider",
     ],
+    key: "oaKANpSyKd",
   },
   {
     id: "story-19",
@@ -641,6 +659,7 @@ export const ToeicNovel = [
       "as part of",
       "gift",
     ],
+    key: "gGtwtsfqof",
   },
   {
     id: "story-20",
@@ -667,5 +686,6 @@ export const ToeicNovel = [
       "sufficient",
       "essential",
     ],
+    key: "UKoXCEwWGZ",
   },
 ];
