@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Typography } from "@material-ui/core";
 
-const Content = (props) => {
+const ReadContent = (props) => {
   //content: đoạn văn
   //words: mảng các vocabulảy
   const { content, className, words, onClick } = props;
@@ -27,11 +27,11 @@ const Content = (props) => {
   );
 };
 
-Content.propTypes = {
+ReadContent.propTypes = {
   content: PropTypes.string.isRequired,
   className: PropTypes.string,
   words: PropTypes.array,
   onClick: PropTypes.func,
 };
 
-export default Content;
+export default ReadContent;

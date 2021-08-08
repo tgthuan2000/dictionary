@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core";
 import axios from "axios";
 import Header from "../../components/Header";
-import Content from "./content";
+import ReadContent from "./readContent";
 import ReadModal from "./readModal";
 
 const useStyles = makeStyles((theme) => ({
@@ -58,7 +58,7 @@ const ReadNovel = (props) => {
   return (
     <>
       <Header title={title} color="primary" variant="h5" component="p" />
-      <Content
+      <ReadContent
         className={classes.word}
         {...data}
         onClick={handleContentClick}

@@ -155,7 +155,7 @@ function NavBar(props) {
               <Vocabulary data={toeic} trans={trans.trans} />
             </TabPanel>
             <TabPanel value={value} index={3}>
-              <Examinate data={toeic} />
+              <Examinate data={toeic} trans={trans.trans} />
             </TabPanel>
             <TabPanel value={value} index={4}>
               <Paragraph data={toeic} />
