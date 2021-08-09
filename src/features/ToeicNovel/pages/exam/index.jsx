@@ -21,7 +21,7 @@ const Examinate = (props) => {
   const { data } = props;
   // console.log(data);
   const [words, setWords] = useState(data.words);
-  const [check, setCheck] = useState(null);
+  const [check, setCheck] = useState(-1);
   const [alert, setAlert] = useState(false);
   const [loading, setLoading] = useState(true);
   const [showResult, setShowResult] = useState(false);
@@ -48,7 +48,7 @@ const Examinate = (props) => {
         setContent(randomContent(words, setWords, data.words));
       else setShowResult(true);
       setAlert(false);
-      setCheck();
+      setCheck(-1);
 
       if (pass.current) setCount(count + 1);
       pass.current = true;
