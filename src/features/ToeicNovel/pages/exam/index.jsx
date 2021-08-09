@@ -5,6 +5,7 @@ import ExamAlert from "./examAlert";
 import ExamContent from "./examContent";
 import { randomContent } from "./examRandom";
 import ExamResult from "./examResult";
+import FinishSound from "../../../../sound effect/success.wav";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -81,11 +82,14 @@ const Examinate = (props) => {
         />
       )}
       {showResult && (
-        <ExamResult
-          onReset={handleReset}
-          count={count}
-          length={data.words.length}
-        />
+        <>
+          <ExamResult
+            onReset={handleReset}
+            count={count}
+            length={data.words.length}
+          />
+          <audio autoPlay src={FinishSound} />
+        </>
       )}
     </div>
   );
