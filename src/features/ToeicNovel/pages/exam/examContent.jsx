@@ -20,7 +20,7 @@ const ExamContent = (props) => {
         subheader={
           <ListSubheader component="div">{`Câu ${
             length - count
-          }/${length} ${word}`}</ListSubheader>
+          }/${length} | ${word}`}</ListSubheader>
         }
       >
         {data.map((item, index) => (
