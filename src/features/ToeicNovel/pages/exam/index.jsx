@@ -62,6 +62,7 @@ const Examinate = (props) => {
     setLoading(true);
     setCount(0);
     setShowResult(false);
+    setCheck(-1);
   };
   return (
     <div className={classes.root}>
