@@ -1,9 +1,10 @@
 import { makeStyles } from "@material-ui/core";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useEffect } from "react";
 import ExamAlert from "./examAlert";
 import ExamContent from "./examContent";
-import randomContent from "./randomContent";
+import { randomContent } from "./examRandom";
+import ExamResult from "./examResult";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,51 +16,69 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Examinate = (props) => {
-  const { data, trans } = props;
-  // console.log(data, trans);
-  const { words } = data;
-  const [check, setCheck] = useState(-1);
-  const [content, setContent] = useState({});
-  const [loading, setLoading] = useState(true);
   const classes = useStyles();
-  const [alert, setAlert] = useState({});
-  useEffect(() => {
-    setLoading(false);
-    setContent(randomContent(words, trans));
-  }, [words, trans]);
+  const { data } = props;
+  // console.log(data);
+  const [words, setWords] = useState(data.words);
+  const [check, setCheck] = useState(null);
+  const [alert, setAlert] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [count, setCount] = useState(0);
+  const pass = useRef(true);
+  const [content, setContent] = useState({
+    correct: "",
+    answers: [],
+    word: "",
+  });
   const { correct, answers, word } = content;
+  // console.log("render");
   // console.log({ correct, answers, word });
-  const handleCheck = (index) => {
-    setCheck(index);
-  };
+  useEffect(() => {
+    if (loading && words.length > 0) {
+      setLoading(false);
+      setContent(randomContent(words, setWords, data.words));
+    }
+  }, [data, words, loading]);
+
   const handleSubmit = (index) => {
     if (answers[index] === correct) {
-      setAlert({ open: true, status: true, content: "Đáp án chính xác!!!" });
-      setCheck(-1);
-      setContent(randomContent(words, trans, word));
+      setContent(randomContent(words, setWords, data.words));
+      setCheck();
+      setAlert(false);
+      if (pass.current) setCount(count + 1);
+      pass.current = true;
     } else {
-      setAlert({
-        open: true,
-        status: false,
-        content: "Đáp án không chính xác!!!",
-      });
+      pass.current = false;
+      setAlert(true);
     }
+  };
+  const handleReset = () => {
+    setWords(data.words);
+    setLoading(true);
   };
   return (
     <div className={classes.root}>
       <ExamAlert
-        open={alert.open}
-        content={alert.content}
-        status={alert.status}
-        onClose={() => setAlert({ ...alert, open: false })}
+        open={alert}
+        content={"Đáp án không chính xác!!!"}
+        onClose={() => setAlert(false)}
       />
-      {!loading && (
+      {!loading && words.length !== 0 && (
         <ExamContent
           data={answers}
           word={word}
+          length={data.words.length}
+          count={words.length}
           onSubmit={handleSubmit}
           checked={check}
-          setChecked={handleCheck}
+          setChecked={(index) => setCheck(index)}
+        />
+      )}
+      {words.length === 0 && (
+        <ExamResult
+          onReset={handleReset}
+          count={count}
+          length={data.words.length}
         />
       )}
     </div>

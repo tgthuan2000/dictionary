@@ -1,11 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Typography } from "@material-ui/core";
-
+import { makeStyles, Typography } from "@material-ui/core";
+const useStyles = makeStyles((theme) => ({
+  word: {
+    cursor: "pointer",
+    userSelect: "none",
+  },
+}));
 const ReadContent = (props) => {
+  const classes = useStyles();
   //content: đoạn văn
   //words: mảng các vocabulảy
-  const { content, className, words, onClick } = props;
+  const { content, words, onClick } = props;
   return (
     <Typography component="p">
       {content.split("(*)").map((item, index, { length }) => [
@@ -15,11 +21,11 @@ const ReadContent = (props) => {
             component="span"
             key={index}
             color="secondary"
-            className={className}
-            onClick={() => onClick(words[index].trim())}
+            className={classes.word}
+            onClick={() => onClick(words[index].en.trim())}
           >
             {/* (${index + 1}) */}
-            {`${words[index].trim()}`}
+            {`${words[index].en.trim()}`}
           </Typography>
         ),
       ])}
@@ -29,7 +35,6 @@ const ReadContent = (props) => {
 
 ReadContent.propTypes = {
   content: PropTypes.string.isRequired,
-  className: PropTypes.string,
   words: PropTypes.array,
   onClick: PropTypes.func,
 };

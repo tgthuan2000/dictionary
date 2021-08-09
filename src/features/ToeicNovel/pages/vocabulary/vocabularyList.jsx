@@ -27,8 +27,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const VocabularyList = (props) => {
-  const { list, trans } = props;
-  // console.log(trans);
+  const { list } = props;
   const classes = useStyles();
 
   return (
@@ -45,14 +44,14 @@ const VocabularyList = (props) => {
           </ListSubheader>
         }
       >
-        {list.map((word, index) => (
+        {list.map(({ en, vi }, index) => (
           <Accordion key={index}>
             <AccordionSummary expandIcon={<ExpandMore />}>
               <Typography className={classes.heading}>
-                {word.toLowerCase().trim()}
+                {en.toLowerCase().trim()}
               </Typography>
               <Typography className={classes.secondaryHeading}>
-                {trans[index]?.toLowerCase().trim()}
+                {vi.toLowerCase().trim()}
               </Typography>
             </AccordionSummary>
             <AccordionDetails>

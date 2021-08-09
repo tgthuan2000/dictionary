@@ -11,13 +11,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ExamContent = (props) => {
-  const { word, data, onSubmit, checked, setChecked } = props;
+  const { count, length, word, data, onSubmit, checked, setChecked } = props;
   const classes = useStyles();
   return (
     <>
       <List
         className={classes.root}
-        subheader={<ListSubheader component="div">{word}</ListSubheader>}
+        subheader={
+          <ListSubheader component="div">{`Câu ${
+            length - count
+          }/${length} ${word}`}</ListSubheader>
+        }
       >
         {data.map((item, index) => (
           <ExamItem
@@ -47,6 +51,8 @@ ExamContent.propTypes = {
   onSubmit: PropTypes.func,
   data: PropTypes.array,
   word: PropTypes.string,
+  length: PropTypes.number,
+  count: PropTypes.number,
 };
 
 export default ExamContent;

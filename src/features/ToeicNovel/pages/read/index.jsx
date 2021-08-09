@@ -1,50 +1,30 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { makeStyles } from "@material-ui/core";
 import axios from "axios";
 import Header from "../../components/Header";
 import ReadContent from "./readContent";
 import ReadModal from "./readModal";
 
-const useStyles = makeStyles((theme) => ({
-  word: {
-    cursor: "pointer",
-    userSelect: "none",
-  },
-  modal: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  paper: {
-    backgroundColor: theme.palette.background.paper,
-    borderRadius: "8px",
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-    overflowX: "hidden",
-  },
-}));
-
 const ReadNovel = (props) => {
-  const classes = useStyles();
   const [word, setWord] = useState({});
   const { data } = props;
-  const { title } = data;
+  const { title, content, words } = data;
   const [modal, setModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const handleContentClick = (word) => {
     setLoading(true);
+    const { vi } = words.find(({ en }) => en === word);
     async function getWord() {
       try {
         const response = await axios.get(
           `https://api.dictionaryapi.dev/api/v2/entries/en_US/${word}`
         );
-        // console.log(...response.data);
-        setWord(...response.data);
+        console.log(...response.data);
+        setWord({ vi, info: response.data });
         setLoading(false);
       } catch (error) {
         // console.error(error);
-        setWord("404 not found");
+        setWord({ vi });
         setLoading(false);
       }
     }
@@ -59,15 +39,14 @@ const ReadNovel = (props) => {
     <>
       <Header title={title} color="primary" variant="h5" component="p" />
       <ReadContent
-        className={classes.word}
-        {...data}
+        content={content}
+        words={words}
         onClick={handleContentClick}
       />
       <ReadModal
         open={modal}
         onClose={handleCloseModal}
-        paperClass={classes.paper}
-        data={JSON.stringify(word)}
+        data={word}
         isLoading={loading}
       />
     </>

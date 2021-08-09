@@ -5,11 +5,11 @@ import { Alert } from "@material-ui/lab";
 import { Close } from "@material-ui/icons";
 
 const ExamAlert = (props) => {
-  const { content, onClose, open, status } = props;
+  const { content, onClose, open } = props;
   return (
     <Collapse in={open}>
       <Alert
-        severity={status ? "success" : "error"}
+        severity="error"
         action={
           <IconButton
             aria-label="close"
