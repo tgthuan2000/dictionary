@@ -3,15 +3,14 @@ import PropTypes from "prop-types";
 import { Collapse, IconButton } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import { Close } from "@material-ui/icons";
-import ErrorSound from "../../../../sound effect/error.wav";
 
-const ExamAlert = (props) => {
-  const { content, onClose, open } = props;
+const AlertText = (props) => {
+  const { content, onClose, open, sound, status } = props;
   return (
     <>
       <Collapse in={open}>
         <Alert
-          severity="error"
+          severity={status}
           action={
             <IconButton
               aria-label="close"
@@ -26,15 +25,20 @@ const ExamAlert = (props) => {
           {content}
         </Alert>
       </Collapse>
-      {open && <audio autoPlay src={ErrorSound} />}
+      {open && sound && <audio autoPlay src={sound} />}
     </>
   );
 };
 
-ExamAlert.propTypes = {
+AlertText.propTypes = {
   content: PropTypes.string,
   onClose: PropTypes.func,
   open: PropTypes.bool,
+  sound: PropTypes.string,
+  status: PropTypes.string,
+};
+AlertText.defaultProps = {
+  status: "error",
 };
 
-export default ExamAlert;
+export default AlertText;

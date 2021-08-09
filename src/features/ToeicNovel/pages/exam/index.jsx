@@ -1,12 +1,13 @@
 import { makeStyles } from "@material-ui/core";
 import React, { useRef, useState } from "react";
 import { useEffect } from "react";
-import ExamAlert from "./examAlert";
 import ExamContent from "./examContent";
-import { randomContent } from "./examRandom";
-import ExamResult from "./examResult";
+import randomExam from "./examRandom";
 import SuccessSound from "../../../../sound effect/success.wav";
+import ErrorSound from "../../../../sound effect/error.wav";
 import FaildSound from "../../../../sound effect/faild.wav";
+import AlertText from "../../../../components/AlertText";
+import ResultNav from "../../components/ResultNav";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,14 +40,14 @@ const Examinate = (props) => {
   useEffect(() => {
     if (loading && words.length > 0) {
       setLoading(false);
-      setContent(randomContent(words, setWords, data.words));
+      setContent(randomExam(words, setWords, data.words));
     }
   }, [data, words, loading]);
 
   const handleSubmit = (index) => {
     if (answers[index] === correct) {
       if (words.length !== 0)
-        setContent(randomContent(words, setWords, data.words));
+        setContent(randomExam(words, setWords, data.words));
       else setShowResult(true);
       setAlert(false);
       setCheck(-1);
@@ -67,10 +68,11 @@ const Examinate = (props) => {
   };
   return (
     <div className={classes.root}>
-      <ExamAlert
+      <AlertText
         open={alert}
         content={"Đáp án không chính xác!!!"}
         onClose={() => setAlert(false)}
+        sound={ErrorSound}
       />
       {!loading && !showResult && (
         <ExamContent
@@ -85,7 +87,7 @@ const Examinate = (props) => {
       )}
       {showResult && (
         <>
-          <ExamResult
+          <ResultNav
             onReset={handleReset}
             count={count}
             length={data.words.length}

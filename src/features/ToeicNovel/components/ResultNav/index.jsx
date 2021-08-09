@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ExamResult = (props) => {
+const ResultNav = (props) => {
   const classes = useStyles();
   const { onReset, count, length } = props;
   const percent = (count * 100) / length;
@@ -36,10 +36,10 @@ const ExamResult = (props) => {
   );
 };
 
-ExamResult.propTypes = {
+ResultNav.propTypes = {
   onReset: PropTypes.func,
   count: PropTypes.number,
   length: PropTypes.number,
 };
 
-export default ExamResult;
+export default ResultNav;

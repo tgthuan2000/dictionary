@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     backgroundColor: theme.palette.background.paper,
   },
+  word: { userSelect: "none" },
 }));
 
 const ExamContent = (props) => {
@@ -24,7 +25,7 @@ const ExamContent = (props) => {
       <List
         className={classes.root}
         subheader={
-          <ListSubheader component="div">
+          <ListSubheader component="div" className={classes.word}>
             Câu {length - count}/{length} |{" "}
             <Typography component="span" color="secondary" variant="h6">
               {word.trim().toLowerCase()}

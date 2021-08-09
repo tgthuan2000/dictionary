@@ -1,4 +1,4 @@
-export const randomContent = (newWords, setNewWords, oldWords) => {
+const randomExam = (newWords, setNewWords, oldWords) => {
   const index = Math.floor(Math.random() * newWords.length);
   const tempWords = [...newWords];
   const [word] = tempWords.splice(index, 1);
@@ -17,6 +17,7 @@ export const randomContent = (newWords, setNewWords, oldWords) => {
     ),
   };
 };
+export default randomExam;
 
 const getIncorrectAnswer = (words, number = 1) => {
   let result = [];
