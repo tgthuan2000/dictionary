@@ -1,7 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 import ExamItem from "./examItem";
-import { Button, List, ListSubheader, makeStyles } from "@material-ui/core";
+import {
+  Button,
+  List,
+  ListSubheader,
+  makeStyles,
+  Typography,
+} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,9 +24,12 @@ const ExamContent = (props) => {
       <List
         className={classes.root}
         subheader={
-          <ListSubheader component="div">{`Câu ${
-            length - count
-          }/${length} | ${word}`}</ListSubheader>
+          <ListSubheader component="div">
+            Câu {length - count}/{length} |{" "}
+            <Typography component="span" color="secondary" variant="h6">
+              {word.trim().toLowerCase()}
+            </Typography>
+          </ListSubheader>
         }
       >
         {data.map((item, index) => (

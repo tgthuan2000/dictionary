@@ -14,14 +14,19 @@ const useStyles = makeStyles((theme) => ({
 const ExamResult = (props) => {
   const classes = useStyles();
   const { onReset, count, length } = props;
+  const percent = (count * 100) / length;
   return (
     <Paper className={classes.root}>
       <Typography variant="h4" color="secondary" gutterBottom>
         Kết quả
       </Typography>
       {/* score -> count/length | percent*/}
-      <Typography variant="h6" color="primary" gutterBottom>
-        {count}/{length} | {((count * 100) / length).toFixed(2)}%
+      <Typography
+        variant="h6"
+        color={percent >= 50 ? "primary" : "textSecondary"}
+        gutterBottom
+      >
+        {count}/{length} | {percent.toFixed(2)}%
       </Typography>
       {/* btn reset */}
       <Button variant="contained" fullWidth color="primary" onClick={onReset}>

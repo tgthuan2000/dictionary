@@ -5,7 +5,8 @@ import ExamAlert from "./examAlert";
 import ExamContent from "./examContent";
 import { randomContent } from "./examRandom";
 import ExamResult from "./examResult";
-import FinishSound from "../../../../sound effect/success.wav";
+import SuccessSound from "../../../../sound effect/success.wav";
+import FaildSound from "../../../../sound effect/faild.wav";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -89,7 +90,10 @@ const Examinate = (props) => {
             count={count}
             length={data.words.length}
           />
-          <audio autoPlay src={FinishSound} />
+          <audio
+            autoPlay
+            src={count / data.words.length >= 0.5 ? SuccessSound : FaildSound}
+          />
         </>
       )}
     </div>
