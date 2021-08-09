@@ -29,16 +29,17 @@ const Paragraph = (props) => {
   const pass = useRef(true);
   const [content, setContent] = useState({ correct: "", word: "" });
   const { correct, word } = content;
-
+  
   useEffect(() => {
     if (loading && words.length > 0) {
       setLoading(false);
       setContent(randomParagraph(words, setWords, data.words));
     }
   }, [data, words, loading]);
+  
 
   const handleSubmit = () => {
-    if (correct === value.trim().toLowerCase()) {
+    if (correct.trim().toLowerCase() === value.trim().toLowerCase()) {
       if (words.length !== 0)
         setContent(randomParagraph(words, setWords, data.words));
       else setShowResult(true);
