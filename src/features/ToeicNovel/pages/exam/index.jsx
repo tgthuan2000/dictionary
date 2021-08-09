@@ -23,6 +23,7 @@ const Examinate = (props) => {
   const [check, setCheck] = useState(null);
   const [alert, setAlert] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [showResult, setShowResult] = useState(false);
   const [count, setCount] = useState(0);
   const pass = useRef(true);
   const [content, setContent] = useState({
@@ -42,9 +43,12 @@ const Examinate = (props) => {
 
   const handleSubmit = (index) => {
     if (answers[index] === correct) {
-      setContent(randomContent(words, setWords, data.words));
-      setCheck();
+      if (words.length !== 0)
+        setContent(randomContent(words, setWords, data.words));
+      else setShowResult(true);
       setAlert(false);
+      setCheck();
+
       if (pass.current) setCount(count + 1);
       pass.current = true;
     } else {
@@ -55,6 +59,8 @@ const Examinate = (props) => {
   const handleReset = () => {
     setWords(data.words);
     setLoading(true);
+    setCount(0);
+    setShowResult(false);
   };
   return (
     <div className={classes.root}>
@@ -63,7 +69,7 @@ const Examinate = (props) => {
         content={"Đáp án không chính xác!!!"}
         onClose={() => setAlert(false)}
       />
-      {!loading && words.length !== 0 && (
+      {!loading && !showResult && (
         <ExamContent
           data={answers}
           word={word}
@@ -74,7 +80,7 @@ const Examinate = (props) => {
           setChecked={(index) => setCheck(index)}
         />
       )}
-      {words.length === 0 && (
+      {showResult && (
         <ExamResult
           onReset={handleReset}
           count={count}
