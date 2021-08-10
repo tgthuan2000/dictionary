@@ -67,7 +67,7 @@ const ParagraphForm = (props) => {
         color="primary"
         size="large"
         fullWidth
-        disabled={value === ""}
+        disabled={value.trim() === ""}
         onClick={onSubmit}
       >
         Kiểm tra
