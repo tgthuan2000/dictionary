@@ -38,10 +38,11 @@ const Paragraph = (props) => {
   }, [data, words, loading]);
   
   useEffect(()=>{
-	if(alert.open && alert.status === "error")
-		setTimeout(()=>{
+	const setTime = setTimeout(()=>{
+		if(alert.open && alert.status === "error")
 			setAlert({...alert, open: false})
-		}, 3000)
+	}, 3000)
+	return () => clearTimeout(setTime)
   }, [alert])
   
 
@@ -70,7 +71,6 @@ const Paragraph = (props) => {
     setCount(0);
     setShowResult(false);
     setValue("");
-    setAlert({ open: false, status: "", message: "" });
   };
   const handleShowAnswer = () => {
     setValue("");
