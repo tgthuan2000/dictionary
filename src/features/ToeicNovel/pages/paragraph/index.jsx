@@ -37,6 +37,14 @@ const Paragraph = (props) => {
     }
   }, [data, words, loading]);
   
+  useEffect(()=>{
+	const setTime = setTimeout(()=>{
+		if(alert.open && alert.status === "error")
+			setAlert({...alert, open: false})
+	}, 3000)
+	return () => clearTimeout(setTime)
+  }, [alert])
+
   const handleSubmit = () => {
     if (correct.trim().toLowerCase() === value.trim().toLowerCase()) {
       if (words.length !== 0)
