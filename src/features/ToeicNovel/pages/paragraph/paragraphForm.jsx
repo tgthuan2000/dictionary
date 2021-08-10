@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ParagraphForm = (props) => {
-  const { value, setValue, onSubmit, count, length, word, showAnswer } = props;
+  const { value, onChange, onSubmit, count, length, word, showAnswer } = props;
   const classes = useStyles();
   return (
     <>
@@ -54,7 +54,7 @@ const ParagraphForm = (props) => {
           <TextField
             label="Đáp án"
             value={value}
-            onChange={(e) => setValue(e.target.value)}
+            onChange={(e) => onChange(e)}
             className={classes.textField}
           />
           <IconButton onClick={showAnswer}>

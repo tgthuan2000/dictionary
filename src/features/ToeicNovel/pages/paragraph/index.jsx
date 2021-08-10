@@ -37,6 +37,13 @@ const Paragraph = (props) => {
     }
   }, [data, words, loading]);
   
+  useEffect(()=>{
+	if(alert.open && alert.status === "error")
+		setTimeout(()=>{
+			setAlert({...alert, open: false})
+		}, 3000)
+  }, [alert])
+  
 
   const handleSubmit = () => {
     if (correct.trim().toLowerCase() === value.trim().toLowerCase()) {
@@ -66,17 +73,21 @@ const Paragraph = (props) => {
     setAlert({ open: false, status: "", message: "" });
   };
   const handleShowAnswer = () => {
-    if (words.length !== 0)
-      setContent(randomParagraph(words, setWords, data.words));
-    else setShowResult(true);
     setValue("");
-    pass.current = true;
+    pass.current = false;
     setAlert({
       open: true,
       status: "warning",
       message: `${word.trim().toLowerCase()} - ${correct.trim().toLowerCase()}`,
     });
   };
+  const handleChangeValue = (e) => {
+	const inputValue = e.target.value
+	setValue(inputValue)
+	if(inputValue.trim() !== "" && alert.status === "warning")
+		setAlert({ ...alert, open: false })
+  }
+  
   return (
     <div className={classes.root}>
       <AlertText
@@ -89,7 +100,7 @@ const Paragraph = (props) => {
       {!loading && !showResult && (
         <ParagraphForm
           value={value}
-          setValue={setValue}
+          onChange={handleChangeValue}
           onSubmit={handleSubmit}
           count={words.length}
           length={data.words.length}
