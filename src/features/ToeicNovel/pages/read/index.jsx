@@ -13,18 +13,18 @@ const ReadNovel = (props) => {
   const [loading, setLoading] = useState(false);
   const handleContentClick = (word) => {
     setLoading(true);
-    const { vi } = words.find(({ en }) => en === word);
+    const { vi, en } = words.find(({ en }) => en === word);
     async function getWord() {
       try {
         const response = await axios.get(
           `https://api.dictionaryapi.dev/api/v2/entries/en_US/${word}`
         );
-        console.log(...response.data);
-        setWord({ vi, info: response.data });
+        // console.log(...response.data);
+        setWord({ vi, en, info: response.data });
         setLoading(false);
       } catch (error) {
         // console.error(error);
-        setWord({ vi });
+        setWord({ vi, en });
         setLoading(false);
       }
     }

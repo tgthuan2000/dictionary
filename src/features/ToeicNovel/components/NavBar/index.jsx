@@ -15,7 +15,6 @@ import {
   HomeOutlined,
   KeyboardArrowUp,
   LibraryBooksOutlined,
-  NoteAddOutlined,
   SpellcheckOutlined,
   ViewHeadlineOutlined,
 } from "@material-ui/icons";
@@ -24,7 +23,6 @@ import ReadNovel from "../../pages/read";
 import Vocabulary from "../../pages/vocabulary";
 import Examinate from "../../pages/exam";
 import Paragraph from "../../pages/paragraph";
-import NotePage from "../../pages/note";
 import HideOnScroll from "../../../../components/HideOnScroll";
 import TabPanel from "./TabPanel";
 import ScrollTop from "./ScrollTop";
@@ -89,11 +87,6 @@ function NavBar(props) {
                   label="Việt - Anh"
                   {...a11yProps(4)}
                 />
-                <Tab
-                  icon={<NoteAddOutlined />}
-                  label="Ghi chú"
-                  {...a11yProps(5)}
-                />
               </Tabs>
             </Paper>
           </Toolbar>
@@ -112,9 +105,6 @@ function NavBar(props) {
         </TabPanel>
         <TabPanel value={value} index={4}>
           <Paragraph data={toeic} />
-        </TabPanel>
-        <TabPanel value={value} index={5}>
-          <NotePage data={toeic} />
         </TabPanel>
       </Container>
       <ScrollTop {...props}>
