@@ -66,13 +66,7 @@ const Examinate = (props) => {
     setShowResult(false);
     setCheck(-1);
   };
-  
-   useEffect(()=>{
-	const setTime = setTimeout(()=>{
-		if(alert) setAlert(false)
-	}, 3000)
-	return () => clearTimeout(setTime)
-  }, [alert])
+ 
   return (
     <div className={classes.root}>
       <AlertText
