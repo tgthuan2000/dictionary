@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import IModal from "../../../../components/IModal";
 import { IconButton, makeStyles, Typography } from "@material-ui/core";
@@ -22,60 +22,54 @@ const useStyles = makeStyles((theme) => ({
 }));
 const ReadModal = (props) => {
   const classes = useStyles();
-  const [phonetics, setPhonetics] = useState([]);
   const { data } = props;
-  const { vi, en, info } = data;
-  useEffect(() => {
-    if (info) {
-      const [en] = info;
-      setPhonetics(en.phonetics);
-      // console.log(en);
-    } else setPhonetics([]);
-  }, [info]);
-  return (
-    <IModal {...props}>
-      <div className={classes.paper}>
-        <Typography variant="h6" color="primary" gutterBottom>
-          {en && en.trim().toLowerCase()}
-        </Typography>
-        <Typography color="textSecondary">
-          Phiên dịch:{" "}
-          <Typography component="span" color="textPrimary">
-            {vi && vi.trim().toLowerCase()}
+  const { vi, en, infors } = data;
+  if (vi && en) {
+    return (
+      <IModal {...props}>
+        <div className={classes.paper}>
+          <Typography variant="h6" color="primary" gutterBottom>
+            {en && en.trim().toLowerCase()}
           </Typography>
-        </Typography>
-        {phonetics.length > 0 && (
-          <div>
-            <Typography component="span" color="textSecondary">
-              Phiên âm:{" "}
+          <Typography color="textSecondary">
+            Phiên dịch:{" "}
+            <Typography component="span" color="textPrimary">
+              {vi && vi.trim().toLowerCase()}
             </Typography>
-            {phonetics.map(({ text, audio }, index) => (
-              <Typography
-                component="span"
-                className={classes.buttonWrap}
-                key={index}
-                color="textSecondary"
-              >
-                <Typography component="span" color="textPrimary">
-                  {text}
-                </Typography>
-                <IconButton
-                  className={classes.button}
-                  onClick={() =>
-                    document.getElementById(`audio-${index}`).play()
-                  }
-                >
-                  <VolumeUpOutlined fontSize="small" />
-                </IconButton>
-                <audio src={audio} id={`audio-${index}`} />
+          </Typography>
+          {infors && (
+            <div>
+              <Typography component="span" color="textSecondary">
+                Phiên âm:{" "}
               </Typography>
-            ))}
-          </div>
-        )}
-        {/* <small>{JSON.stringify(info)}</small> */}
-      </div>
-    </IModal>
-  );
+              {infors[0].phonetics.map(({ text, audio }, index) => (
+                <Typography
+                  component="span"
+                  className={classes.buttonWrap}
+                  key={index}
+                  color="textSecondary"
+                >
+                  <Typography component="span" color="textPrimary">
+                    {text}
+                  </Typography>
+                  <IconButton
+                    className={classes.button}
+                    onClick={() =>
+                      document.getElementById(`audio-${index}`).play()
+                    }
+                  >
+                    <VolumeUpOutlined fontSize="small" />
+                  </IconButton>
+                  <audio src={audio} id={`audio-${index}`} />
+                </Typography>
+              ))}
+            </div>
+          )}
+          {/* <small>{JSON.stringify(info)}</small> */}
+        </div>
+      </IModal>
+    );
+  } else return null;
 };
 
 ReadModal.propTypes = {

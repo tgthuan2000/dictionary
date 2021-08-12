@@ -2,10 +2,10 @@ import { makeStyles } from "@material-ui/core";
 import React, { useEffect, useRef, useState } from "react";
 import AlertText from "../../../../components/AlertText";
 import ParagraphForm from "./paragraphForm";
-import ErrorSound from "../../../../sound effect/error.wav";
 import randomParagraph from "./paragraphRandom";
-import SuccessSound from "../../../../sound effect/success.wav";
-import FaildSound from "../../../../sound effect/faild.wav";
+import WinSound from "../../../../sound effect/win.wav";
+import LoseSound from "../../../../sound effect/lose.mp3";
+import ShowAnswerSound from "../../../../sound effect/lose.wav";
 import ResultNav from "../../components/ResultNav";
 
 const useStyles = makeStyles((theme) => ({
@@ -29,24 +29,25 @@ const Paragraph = (props) => {
   const pass = useRef(true);
   const [content, setContent] = useState({ correct: "", word: "" });
   const { correct, word } = content;
-  
+
   useEffect(() => {
     if (loading && words.length > 0) {
       setLoading(false);
       setContent(randomParagraph(words, setWords, data.words));
     }
   }, [data, words, loading]);
-  
-  useEffect(()=>{
-	const setTime = setTimeout(()=>{
-		if(alert.open && alert.status === "error")
-			setAlert({...alert, open: false})
-	}, 3000)
-	return () => clearTimeout(setTime)
-  }, [alert])
+
+  useEffect(() => {
+    const setTime = setTimeout(() => {
+      if (alert.open && alert.status === "error")
+        setAlert({ ...alert, open: false });
+    }, 3000);
+    return () => clearTimeout(setTime);
+  }, [alert]);
 
   const handleSubmit = () => {
     if (correct.trim().toLowerCase() === value.trim().toLowerCase()) {
+      document.getElementById("audio-success").play();
       if (words.length !== 0)
         setContent(randomParagraph(words, setWords, data.words));
       else setShowResult(true);
@@ -56,6 +57,7 @@ const Paragraph = (props) => {
       if (pass.current) setCount(count + 1);
       pass.current = true;
     } else {
+      document.getElementById("audio-error").play();
       pass.current = false;
       setAlert({
         open: true,
@@ -72,6 +74,7 @@ const Paragraph = (props) => {
     setValue("");
   };
   const handleShowAnswer = () => {
+    document.getElementById("audio-show-answer").play();
     setValue("");
     pass.current = false;
     setAlert({
@@ -81,46 +84,53 @@ const Paragraph = (props) => {
     });
   };
   const handleChangeValue = (e) => {
-	const inputValue = e.target.value
-	setValue(inputValue)
-	if(inputValue.trim() !== "" && alert.status === "warning")
-		setAlert({ ...alert, open: false })
-  }
-  
+    const inputValue = e.target.value;
+    setValue(inputValue);
+    if (inputValue.trim() !== "" && alert.status === "warning")
+      setAlert({ ...alert, open: false });
+  };
+
+  const handleKeyPress = (e) => {
+    if ((value.trim() !== "" && e.which === 13) || e.keyCode === 13)
+      handleSubmit();
+  };
   return (
-    <div className={classes.root}>
-      <AlertText
-        open={alert.open}
-        content={alert.message}
-        onClose={() => setAlert({ ...alert, open: false })}
-        sound={ErrorSound}
-        status={alert.status}
-      />
-      {!loading && !showResult && (
-        <ParagraphForm
-          value={value}
-          onChange={handleChangeValue}
-          onSubmit={handleSubmit}
-          count={words.length}
-          length={data.words.length}
-          word={word}
-          showAnswer={handleShowAnswer}
+    <>
+      <div className={classes.root}>
+        <AlertText
+          open={alert.open}
+          content={alert.message}
+          onClose={() => setAlert({ ...alert, open: false })}
+          status={alert.status}
         />
-      )}
-      {showResult && (
-        <>
-          <ResultNav
-            onReset={handleReset}
-            count={count}
+        {!loading && !showResult && (
+          <ParagraphForm
+            value={value}
+            onChange={handleChangeValue}
+            onKeyPress={handleKeyPress}
+            onSubmit={handleSubmit}
+            count={words.length}
             length={data.words.length}
+            word={word}
+            showAnswer={handleShowAnswer}
           />
-          <audio
-            autoPlay
-            src={count / data.words.length >= 0.5 ? SuccessSound : FaildSound}
-          />
-        </>
-      )}
-    </div>
+        )}
+        {showResult && (
+          <>
+            <ResultNav
+              onReset={handleReset}
+              count={count}
+              length={data.words.length}
+            />
+            <audio
+              autoPlay
+              src={count / data.words.length >= 0.5 ? WinSound : LoseSound}
+            />
+          </>
+        )}
+      </div>
+      <audio src={ShowAnswerSound} id="audio-show-answer" />
+    </>
   );
 };
 

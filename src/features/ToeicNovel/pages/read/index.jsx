@@ -20,7 +20,7 @@ const ReadNovel = (props) => {
           `https://api.dictionaryapi.dev/api/v2/entries/en_US/${word}`
         );
         // console.log(...response.data);
-        setWord({ vi, en, info: response.data });
+        setWord({ vi, en, infors: response.data });
         setLoading(false);
       } catch (error) {
         // console.error(error);

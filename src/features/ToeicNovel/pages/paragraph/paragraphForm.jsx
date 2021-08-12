@@ -35,7 +35,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ParagraphForm = (props) => {
-  const { value, onChange, onSubmit, count, length, word, showAnswer } = props;
+  const {
+    value,
+    onChange,
+    onKeyPress,
+    onSubmit,
+    count,
+    length,
+    word,
+    showAnswer,
+  } = props;
   const classes = useStyles();
   return (
     <>
@@ -56,6 +65,7 @@ const ParagraphForm = (props) => {
             value={value}
             onChange={(e) => onChange(e)}
             className={classes.textField}
+            onKeyPress={(e) => onKeyPress(e)}
           />
           <IconButton onClick={showAnswer}>
             <VisibilityOutlined fontSize="medium" />
@@ -79,7 +89,8 @@ const ParagraphForm = (props) => {
 ParagraphForm.propTypes = {
   showAnswer: PropTypes.func,
   value: PropTypes.string,
-  setValue: PropTypes.func,
+  onChange: PropTypes.func,
+  onKeyPress: PropTypes.func,
   onSubmit: PropTypes.func,
   count: PropTypes.number,
   length: PropTypes.number,
