@@ -23,11 +23,12 @@ const Examinate = (props) => {
   // console.log(data);
   const [words, setWords] = useState(data.words);
   const [check, setCheck] = useState(-1);
-  const [alert, setAlert] = useState(false);
+  const [alert, setAlert] = useState({ open: false, status: "", message: "" });
   const [loading, setLoading] = useState(true);
   const [showResult, setShowResult] = useState(false);
   const [count, setCount] = useState(0);
   const pass = useRef(true);
+  const [next, setNext] = useState(false);
   const [content, setContent] = useState({
     correct: "",
     answers: [],
@@ -40,18 +41,23 @@ const Examinate = (props) => {
   const handleSubmit = (index) => {
     if (answers[index] === correct) {
       document.getElementById("audio-success").play();
-      if (words.length !== 0)
-        setContent(randomExam(words, setWords, data.words));
-      else setShowResult(true);
-      setAlert(false);
-      setCheck(-1);
+      setNext(true);
+      setAlert({
+        open: true,
+        status: "success",
+        message: "Đáp án chính xác!!",
+      });
 
       if (pass.current) setCount(count + 1);
       pass.current = true;
     } else {
       document.getElementById("audio-error").play();
       pass.current = false;
-      setAlert(true);
+      setAlert({
+        open: true,
+        status: "error",
+        message: "Đáp án không chính xác!!",
+      });
     }
   };
   const handleReset = () => {
@@ -64,26 +70,37 @@ const Examinate = (props) => {
 
   useEffect(() => {
     const setTime = setTimeout(() => {
-      if (alert) setAlert(false);
+      if (alert.open) setAlert({ ...alert, open: false });
     }, 3000);
     return () => clearTimeout(setTime);
   }, [alert]);
 
-    useEffect(() => {
+  useEffect(() => {
     if (loading && words.length > 0) {
       setLoading(false);
       setContent(randomExam(words, setWords, data.words));
     }
   }, [data, words, loading]);
+
+  const handleNext = () => {
+    setNext(false);
+    setCheck(-1);
+    if (words.length !== 0) setContent(randomExam(words, setWords, data.words));
+    else setShowResult(true);
+  };
+
   return (
     <div className={classes.root}>
       <AlertText
-        open={alert}
-        content={"Đáp án không chính xác!!!"}
-        onClose={() => setAlert(false)}
+        open={alert.open}
+        content={alert.message}
+        status={alert.status}
+        onClose={() => setAlert({ ...alert, open: false })}
       />
       {!loading && !showResult && (
         <ExamContent
+          next={next}
+          onNext={handleNext}
           data={answers}
           word={word}
           length={data.words.length}

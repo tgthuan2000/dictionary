@@ -18,7 +18,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ExamContent = (props) => {
-  const { count, length, word, data, onSubmit, checked, setChecked } = props;
+  const {
+    count,
+    length,
+    word,
+    data,
+    onSubmit,
+    checked,
+    setChecked,
+    next,
+    onNext,
+  } = props;
   const classes = useStyles();
   return (
     <>
@@ -38,21 +48,33 @@ const ExamContent = (props) => {
             key={index}
             content={item.trim().toLowerCase()}
             checked={checked === index}
-            onClick={() => setChecked(index)}
+            onClick={() => !next && setChecked(index)}
             labelId={`${index}`}
           />
         ))}
       </List>
-      <Button
-        variant="contained"
-        color="secondary"
-        fullWidth
-        size="large"
-        disabled={checked === -1}
-        onClick={() => onSubmit(checked)}
-      >
-        Kiểm tra
-      </Button>
+      {next ? (
+        <Button
+          variant="contained"
+          color="primary"
+          fullWidth
+          size="large"
+          onClick={onNext}
+        >
+          Bài tiếp theo
+        </Button>
+      ) : (
+        <Button
+          variant="contained"
+          color="secondary"
+          fullWidth
+          size="large"
+          disabled={checked === -1}
+          onClick={() => onSubmit(checked)}
+        >
+          Kiểm tra
+        </Button>
+      )}
     </>
   );
 };
@@ -63,6 +85,8 @@ ExamContent.propTypes = {
   word: PropTypes.string,
   length: PropTypes.number,
   count: PropTypes.number,
+  next: PropTypes.bool,
+  onNext: PropTypes.func,
 };
 
 export default ExamContent;
